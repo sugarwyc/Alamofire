@@ -575,6 +575,7 @@ open class UploadRequest: DataRequest {
 // MARK: -
 
 #if !os(watchOS)
+#if ENABLE_STREAM_REQUEST
 
 /// Specific type of `Request` that manages an underlying `URLSessionStreamTask`.
 open class StreamRequest: Request {
@@ -597,4 +598,5 @@ open class StreamRequest: Request {
     }
 }
 
+#endif
 #endif

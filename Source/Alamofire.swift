@@ -420,6 +420,7 @@ public func upload(
 }
 
 #if !os(watchOS)
+#if ENABLE_STREAM_REQUEST
 
 // MARK: - Stream Request
 
@@ -453,4 +454,5 @@ public func stream(with netService: NetService) -> StreamRequest {
     return SessionManager.default.stream(with: netService)
 }
 
+#endif
 #endif

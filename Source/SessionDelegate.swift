@@ -106,6 +106,7 @@ open class SessionDelegate: NSObject {
     // MARK: URLSessionStreamDelegate Overrides
 
 #if !os(watchOS)
+#if ENABLE_STREAM_REQUEST
 
     /// Overrides default behavior for URLSessionStreamDelegate method `urlSession(_:readClosedFor:)`.
     open var streamTaskReadClosed: ((URLSession, URLSessionStreamTask) -> Void)?
@@ -119,6 +120,7 @@ open class SessionDelegate: NSObject {
     /// Overrides default behavior for URLSessionStreamDelegate method `urlSession(_:streamTask:didBecome:outputStream:)`.
     open var streamTaskDidBecomeInputAndOutputStreams: ((URLSession, URLSessionStreamTask, InputStream, OutputStream) -> Void)?
 
+#endif
 #endif
 
     // MARK: Properties
@@ -166,6 +168,7 @@ open class SessionDelegate: NSObject {
         #endif
 
         #if !os(watchOS)
+        #if ENABLE_STREAM_REQUEST
             switch selector {
             case #selector(URLSessionStreamDelegate.urlSession(_:readClosedFor:)):
                 return streamTaskReadClosed != nil
@@ -178,6 +181,7 @@ open class SessionDelegate: NSObject {
             default:
                 break
             }
+        #endif
         #endif
 
         switch selector {
@@ -636,6 +640,7 @@ extension SessionDelegate: URLSessionDownloadDelegate {
 // MARK: - URLSessionStreamDelegate
 
 #if !os(watchOS)
+#if ENABLE_STREAM_REQUEST
 
 extension SessionDelegate: URLSessionStreamDelegate {
     /// Tells the delegate that the read side of the connection has been closed.
@@ -677,5 +682,6 @@ extension SessionDelegate: URLSessionStreamDelegate {
         streamTaskDidBecomeInputAndOutputStreams?(session, streamTask, inputStream, outputStream)
     }
 }
-
+    
+#endif
 #endif

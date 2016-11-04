@@ -695,6 +695,7 @@ open class SessionManager {
     }
 
 #if !os(watchOS)
+#if ENABLE_STREAM_REQUEST
 
     // MARK: - Stream Request
 
@@ -750,6 +751,7 @@ open class SessionManager {
         return stream
     }
 
+#endif
 #endif
 
     // MARK: - Internal - Retry Request
